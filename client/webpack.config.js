@@ -13,6 +13,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      publicPath: '', // Set publicPath to an empty string to fix 'auto' prefix on manifest.json post-build
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -26,7 +27,7 @@ module.exports = () => {
         crossorigin: 'anonymous',
         icons: [
           {
-            src: path.resolve('./src/images/logo.png'), 
+            src: path.resolve(__dirname, 'favicon.ico'), 
             sizes: [96, 128, 192, 256, 384, 512] 
           }
         ]
