@@ -31,6 +31,7 @@ export default class {
         this.editor.setValue(valueToSet);
       } else {
         console.error('Invalid value retrieved from storage:', valueToSet);
+        this.editor.setValue(''); // Set a fallback value or handle the error
       }
     });
 
