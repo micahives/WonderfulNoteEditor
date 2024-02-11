@@ -11,6 +11,7 @@ const initdb = async () => {
         if (!db.objectStoreNames.contains(STORE_NAME)) {
           const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
           console.log('jate database created');
+          // maybe come back here
           store.createIndex('content', 'content');
         } else {
           console.log('jate database already exists');
@@ -40,10 +41,11 @@ const getDb = async () => {
     const db = await initdb();
     const tx = db.transaction(STORE_NAME, 'readonly');
     const store = tx.objectStore(STORE_NAME);
-    const data = await store.getAll();
-    await tx.done;
-    console.log('Data retrieved from the database:', data);
-    return data || []; // Return an empty array if no data is found
+    const request = store.get(1);
+    // await tx.done;
+    const result = await request;
+    result ? console.log('Data retrieved from the database:', result.value) : console.log('Data not found in database:');
+    return result?.value;
   } catch (error) {
     console.error('Error retrieving data from the database:', error);
     return []; // Return an empty array as a fallback value

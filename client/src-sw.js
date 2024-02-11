@@ -28,7 +28,7 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 registerRoute(
-  ({ request }) => request.destination === 'style' || request.destination === 'script',
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
   new StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
@@ -39,18 +39,18 @@ registerRoute(
   })
 );
 
-registerRoute(
-  ({ request }) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'my-image-cache',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxEntries: 60,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
-      }),
-    ],
-  })
-);
+// registerRoute(
+//   ({ request }) => request.destination === 'image',
+//   new CacheFirst({
+//     cacheName: 'my-image-cache',
+//     plugins: [
+//       new CacheableResponsePlugin({
+//         statuses: [0, 200],
+//       }),
+//       new ExpirationPlugin({
+//         maxEntries: 60,
+//         maxAgeSeconds: 30 * 24 * 60 * 60,
+//       }),
+//     ],
+//   })
+// );

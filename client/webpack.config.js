@@ -24,17 +24,22 @@ module.exports = () => {
         short_name: 'App',
         description: 'Description of your app',
         background_color: '#ffffff',
-        crossorigin: 'anonymous',
+        // crossorigin: 'anonymous',
+        start_url: '/',
+        publicPath: '/',
+        fingerprints: false,
+        inject: true,
         icons: [
           {
-            src: path.resolve(__dirname, 'favicon.ico'), 
-            sizes: [96, 128, 192, 256, 384, 512] 
+            src: path.resolve('src/images/logo.png'), 
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'), 
           }
         ]
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'sw.js'
+        swDest: 'src-sw.js'
       })
     ],
 
