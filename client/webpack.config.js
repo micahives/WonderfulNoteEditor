@@ -18,6 +18,8 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
+        filename: 'index.html',
+        inject: true
       }),
       new WebpackPwaManifest({
         name: 'Your App Name',
